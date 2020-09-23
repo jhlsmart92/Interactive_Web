@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: row;
+            /*default: row, 꼬챙이에 꿰인 모양처럼 생각해야 함*/
+            justify-content: flex-start;
+            /*default: flex-start*/
+            align-items: stretch;
+            /*수직방향의 정렬, 디폴트는 stretch*/
+            height: 80vh;
+            background: gray;
+
+        }
+
+        .item {
+            /*flex-grow: 1;
+            숫자를 넣으면 아이템들이 늘어남, 비율이 있어야 의미를 가짐
+            flex-basis: 0; 원래 컨텐츠의 비율대로 배분 기본값은 auto*/
+            flex: 1; 
+            font-size: 3em;
+            border: 3px solid black;
+            background: white;
+        }
+
+        /*.item:nth-child(1) {flex-grow: 1;} 
+        .item:nth-child(2) {flex-grow: 5;}
+        .item:nth-child(3) {flex-grow: 2;}
+        .item:nth-child(4) {flex-grow: 3;}
+        .item:nth-child(5) {flex-grow: 1;}*/
+        /*총넓이가 아닌 여백의 비율. 그러나 이는 불편할 수 있음. 실제 디자인은 고정픽셀로 디자인됨*/
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="item">AAA</div>
+        <div class="item">B</div>
+        <div class="item">CCCCC</div>
+        <div class="item">DDD</div>
+        <div class="item">E</div>
+
+    </div>
+</body>
+
+</html>
