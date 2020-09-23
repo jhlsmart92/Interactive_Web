@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Interactive Web</title>
+</head>
+<body>
+  <h1>CSS Transform</h1>
+  <style>
+    .box-container {
+      display: flex;
+    }
+    .box {
+      width: 100px; /*auto는 숫자값이 아니기 때문에 width는 transition의 영향을 받지 않음*/
+      height: 100px;
+      background: rgba(255,255,0,0.7);
+      border: 2px solid black;
+      transition: 3s; /**/
+    }
+    .box:hover {
+      width: 150px;
+      background: red;
+      /*transform: scale(2); skewY(-30deg); 다른 요소와 간섭하지 않음
+       /*transform: skewY(-30deg);비틀기
+       transform: translate(30px, 10px);
+       transform: translateX(10px);
+       transform: translateY(-10px);
+       transform: scale(1.5);*/
+      /*transform-origin: left top;
+      transform-origin: 100% 100%;
+      transform: rotate(30deg);*/
+
+
+
+    }
+    <div>
+
+
+      </div>
+    </div>
+
+  </style>
+  <p>
+    This is the first paragraph. This is the first paragraph. This is the first paragraph.     This is the first paragraph. This is the first paragraph. This is the first paragraph.     This is the first paragraph. This is the first paragraph. This is the first paragraph.     This is the first paragraph. This is the first paragraph. This is the first paragraph.     This is the first paragraph. This is the first paragraph. This is the first paragraph.
+  </P>
+  <div class="box-container">
+    <div class="box">A</div>
+    <div class="box">B</div>
+    <div class="box">C</div>
+    <div class="box">D</div>
+    <div class="box">E</div>
+  </div>
+   <p>
+     This is the second paragraph. This is the second paragraph.   This is the second paragraph.This is the second paragraph. This is the second paragraph. This is the second paragraph.This is the second paragraph. This is the second paragraph. This is the second paragraph.This is the second paragraph. This is the second paragraph. This is the second paragraph.This is the second paragraph. This is the second paragraph. This is the second paragraph.
+   </P>
+
+
+
+</body>
+</html>
