@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Web</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/MovingCharacter.css">
+</head>
+<body>
+    <div class="stage">
+        <div class="ilbuni"></div>
+        <div class="ilbuni"></div>
+        <div class="ilbuni"></div>
+    </div>
+
+<script>
+    (function(){
+        //이벤트 위임: 부모인 stage에 이벤트 처리 시킴.
+        //const ilbuniGroup = document.querySelectorAll('.ilbuni');
+        const stage = document.querySelector('.stage');
+        //console.log(ilbuniGroup);
+        function clickHandler(e) {
+            if (e.target.classList.contains('ilbuni')) {
+            //console.log(e.currentTarget); // this와 동일. addeventlistner가 참조하는 것 보여줌
+            //stage.removeChild(this); // 클릭한 child 삭제
+            //console.log(this.parentNode.removeChild(this))
+            console.log(this); // stage 찍힘. addeventlister이 stage 가라키기 때문
+            console.log(e.target); //내가 누른것.
+            stage.removeChild(e.target); // 이 경우 stage를 클릭하면 에러뜸. stage는 child 가 아니기 때문
+            }
+
+        }
+        stage.addEventListener('click',clickHandler);
+
+        // for (let i = 0; i < ilbuniGroup.length;i++){ //여기선 i 가 변수이므로 let
+        //     ilbuniGroup[i].addEventListener('click',clickHandler); //그룹의 객체를 클릭시 핸들링 할 수 있게
+
+        // }
+        //addeventlistner은 메모리를 많이 먹는 작업임. 이벤트가 많아지면 문제가 됨. 이벤트 위임 필요
+
+
+    }) ();
+
+</script>
+
+</body>
+</html>
