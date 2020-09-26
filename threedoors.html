@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <style>
+        .stage {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+            background: #333;
+            /*perspective: 800px; stage에 perspective를 주면 3개가 위치에 따라 시점이 다름*/
+        }
+
+        .door {
+            position: relative;
+            width: 100px;
+            height: 150px;
+            /*outline: 2px dashed yellow; 문이 들어갈 아웃라인 미리보기*/
+        }
+
+        .door-back {
+            overflow: hidden; /*하위 클래스인 ilbuni가 벗어났을 때 안 보이게*/
+            position: absolute;
+            left: 0px;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+        }
+
+        .ilbuni {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background-repeat: no-repeat;
+            background-position: 50% 100%; /*center, bottom*/
+            background-size: contain;
+            /*outline: 2px dashed red; 캐릭터가 들어갈 아웃라인 미리보기 */
+            transform: translate3d(100%,0,0); /*ilbuni의 위치이동 x축 기준*/
+            /*상대단위인 %를 쓰면 절대단위인 px보다 편함. 객체의 크기를 100%으로 잡음, 따라서 크기가 바뀌더라도 비례해서 움직임*/
+            transition: 0.5s 0.5s; /*0.5초간 나타남(듀레이션). 0.5초뒤에 시작과 퇴장(딜레이)*/
+        }
+
+        .door:nth-child(1) .ilbuni {
+            background-image: url(images/ilbuni_0.png);
+        }
+
+        .door:nth-child(2) .ilbuni {
+            background-image: url(images/ilbuni_1.png);
+        }
+
+        .door:nth-child(3) .ilbuni {
+            background-image: url(images/ilbuni_2.png);
+        }
+
+        .door-body {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            transition: 0.5s; /*0.5초동안 열림*/
+            transform-origin: 0%; /*0%가 회전 기준. left도 가능*/
+        }
+        .door:nth-child(1) .door-body {
+            background: rgba(255, 0, 0, 0.7);
+        }
+
+        .door:nth-child(2) .door-body {
+            background: rgba(0, 255, 0, 0.7);
+        }
+
+        .door:nth-child(3) .door-body {
+            background: rgba(0, 0, 255, 0.7);
+        }
+        .door-opened .door-body { /*문이 열렸을 때 door-body가*/
+            transform: perspective(800px) rotateY(-110deg); /*perspective 없으면 3d공간이 만들어지지 않음*/
+        }
+        .door-opened .ilbuni { /*문이 열렸을 때 ilbuni가*/
+        transform: translate3d(0,0,0); /*x축 기준 100% 에서 원래 위치로 돌아옴*/
+        }
+    </style>
+</head>
+
+<body>
+    <div class="stage">
+        <div class="door">
+            <div class="door-back">
+                <div class="ilbuni"></div>
+            </div>
+            <div class="door-body"></div>
+        </div>
+        <div class="door">
+            <div class="door-back">
+                <div class="ilbuni"></div>
+            </div>
+            <div class="door-body"></div>
+        </div>
+        <div class="door">
+            <div class="door-back">
+                <div class="ilbuni"></div>
+            </div>
+            <div class="door-body"></div>
+        </div>
+    </div>
+
+<script>
+    //이벤트 위임, 전역변수 최소화
+    (function() { // 현재 함수 안의 const는 전역변수 아님. 함수 안에서 전역변수 처럼 기능
+        const stageElem = document.querySelector('.stage'); /*이벤트 위임위해 door들의 부모인 stage에 addeventlistner*/
+        //함수가 이벤트 핸들러로 실행됬을 때, 자동으로 첫번째 매개변수 자리에는 이벤트 객체라는 특수한 객체가 들어옴.
+        //이는 이벤트에 대한 속성을 가지고 있음. 이 이벤트 객체의 타겟속성으로 내가 클릭한 요소가 무엇인지 잡아낼 수 있음
+        let currentItem; // 함수 안에서 변하는 변수. 현재 활성화된 아이템을 저장
+       
+        //활성화
+        function activate(elem) {
+            elem.classList.add('door-opened'); //elem에 door-opened 속성 붙임
+            currentItem = elem; // door를 currentItem 으로 갱신
+        //비활성화
+        }
+        function inactivate(elem) {
+            elem.classList.remove('door-opened'); // door opened 제거
+        }
+        
+        function doorHandler(e) {          
+            const targetElem = e.target; // 클릭한 대상
+            //const currentItem = document.querySelector('.door-opened'); // 이미 열려있는 클래스
+            //그러나 클래스에 접근하는 방식은 연산속도가 가장 느린 방식 중 하나임. 
+            //또한 범용성 측면에서 dom 스크립트가 아닌경우 쿼리셀렉터로 클래스를 잡아낼 수 없음
+            
+            if(currentItem){ // 이미 열려있는 문이 있다면 (이 가정 없는 경우 첫 실행시 currentItem은 null 값이어서 에러발생)
+                inactivate(currentItem);
+            }
+            if(targetElem.classList.contains('door-body')){ //클릭한 대상이 door-body 클래스를 가지고 있다면(이 가정 없으면 stage 클릭시 body에 door-opened 붙게됨)
+                activate(targetElem.parentNode); //클릭한 대상의 부모클래스를 매개변수로 함수실행
+            }
+            console.log(currentItem);
+            console.log(targetElem);
+            
+        }
+        stageElem.addEventListener('click',doorHandler);
+        // 함수를 쪼갰을 때의 장점: 기능을 따로따로 제어 가능
+        activate(document.querySelector('.door:first-child')); 
+        // 첫번째 문을 열어놓은 채로 시작
+        // 활성화함수를 따로 빼놓음으로서 호출만으로 따로 실행 가능.
+    })
+    ();
+
+</script>
+</body>
+
+</html>
