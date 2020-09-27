@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>object</title>
+</head>
+
+<body>
+    <h1>object</h1>
+    <!--사람이 있다치면 그 사람의 속성과 행동이 있음. 이러한 속성들과 행동들을 모아놓은 것을 객체라 함
+    숫자, 문자, 불리안을 제외한 다른 타입은 모두 객체-->
+
+    <script>
+        // const person = { //객체 선언, 함수와 다르게 중괄호 사용
+        //     nickname: '일분이', //속성
+        //     age: 10, //속성
+
+        //     introduce: function () { //메소드: 속성들중에 값이 함수인것
+        //         console.log("안녕하세요 저는" +this.nickname+"이고 나이는" +this.age+"살이에요");
+        //     //this는 메소드를 실행한 주체가 되는 객체
+        //     }
+        // };
+
+
+        // person.introduce();
+        // const person2 = { //객체 선언, 함수와 다르게 중괄호 사용
+        //     nickname: '이분이', //속성
+        //     age: 8, //속성
+
+        //     introduce: function () { //메소드: 속성들중에 값이 함수인것
+        //         console.log("안녕하세요 저는" +this.nickname+"이고 나이는" +this.age+"살이에요");
+        //     }
+        // };
+        // person.introduce();
+        // person2.introduce();
+        // // 고정된 형태의 person 객체를 생성해 낼 수 있는 '틀' 이 필요
+        // //생성자 필요(constructor)
+
+        function Person(nickname, age) { // 객체를 생성하는 함수는 관례적으로 대문자로 시작
+            this.nickname = nickname;
+            this.age = age;
+            //this.introduce = function () {
+            //    console.log("안녕하세요. 저는" + this.nickname + "이고 나이는" + this.age + "살이에요");
+            //};
+        }
+        Person.prototype.introduce = function () {
+            console.log("안녕하세요. 저는" + this.nickname + "이고 나이는" + this.age + "살이에요");
+        };
+        //생성자를 통해 생성된 각각의 개별객체 person1과 person2를 인스턴스라고 부름
+        const person1 = new Person('일분이', 10); //생성자로서 함수를 호출시 앞에 new라는 키워드 필요
+        const person2 = new Person('이분이', 8); //각각의 인스턴스가 nickname, age, introduce를 개별적으로 가지고 있게 됨
+        //이는 메모리 측면에서 비효율적. (introduce의 경우엔 변하지 않기 때문에 하나만 만들어 놓고 공유를 해도 상관없음)
+        //introduce 메소드의 경우 공유를 하는 형태로 바꿔줘야. 
+
+        person1.introduce();
+        person2.introduce();
+    </script>
+</body>
+
+</html>

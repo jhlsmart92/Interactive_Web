@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>object</title>
+    <style>
+        .card {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100px;
+            height: 150px;
+            border: 2px solid black;
+            border-radius: 10px;
+            font-size: 3rem;
+            font-weight: 900;
+        }
+
+    </style>
+</head>
+<body>
+    <script>
+        function Card(num, color) {
+            this.num = num;
+            this.color = color;
+            this.init();
+        }
+        Card.prototype = { //프로토 타입 또한 객체이기 때문에 이러한 형태로 세팅 가능
+            constructor: Card, // 새로운 객체를 다시 만들 때는 컨스트럭터 속성을 넣어주어야 함
+            init: function() {
+                const mainElem =document.createElement('div');
+                mainElem.style.color = this.color; //this 키워드로 개별 객체에 접근
+                mainElem.innerHTML = this.num;
+                mainElem.classList.add('card');
+                document.body.appendChild(mainElem);
+            }
+        }
+
+        const card1 = new Card(1, 'green');
+        const card2 = new Card(7,'blue');
+
+        console.log(card1); //__proto__ 객체 들어있음. 
+        console.log(card2); //__proto__ 객체 들어있음.
+    </script>
+    
+</body>
+</html>
