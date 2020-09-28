@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @keyframes ball-ani {
+            from {
+                transform: translate(0,0);
+            } to {
+                transform: translate(200px, 200px);
+            }
+        }
+        .ball { /*볼을 이용한 애니메이션 이벤트*/
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 30px;
+            height: 30px;
+            margin: -15px 0 0 -15px; /*마진을 음수로 해주어 센터 맞추는 것*/
+            border-radius: 50%;
+            background: red;
+            transition: 2s;
+            animation: ball-ani 1s 3 alternate;
+        }
+        .ball.end {
+            background: dodgerblue;
+        }
+
+    </style>
+
+</head>
+    <div class="ball"></div>
+
+    <script>
+        const ballElem = document.querySelector('.ball');
+
+        window.addEventListener('click',function(e) {
+            console.log(e.clientX, e.clientY);
+            ballElem.style.transform = 'translate(' + e.clientX + 'px, ' + e.clientY + 'px)' //공을 마우스 클릭한 위치로 옮기게
+            //그러나 공의 위치와 커서 위치가 차이남.
+            //이는 두가지 이유가 있으며, 첫번째는 볼의 포지션이 absolute가 아니어서 바디에 마진이 있기 때문.
+            //따라서 볼의 포지션을 abosolute로 하거나 body에 마진을 0으로 줘야함
+        });
+
+        //ballElem.addEventListener('transitionend',function(e){ // 볼에 대해 트랜지션이 끝나면 함수실행하는 이벤트
+        ballElem.addEventListener('transitionstart',function(e){ // 스타트로 바꾸면 시작되자마자 이벤트핸들러 실행
+            ballElem.classList.add('end'); // 볼에 end클래스 붙여줌
+            console.log(e.elapsedTime); // 2초에 걸쳐 이동, 2초에 걸쳐 색변화
+            console.log(e.propertyName); // transform과 background-color 
+        });
+
+    </script>
+</body>
+</html>

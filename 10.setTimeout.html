@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <button class ="btn">취소</button>
+    <script>
+        let timeId;
+        let n = 0;
+        const btn = document.querySelector('.btn');
+
+        function sample() {
+            n++;
+            console.log('sample!');
+            if (n > 200) {
+                return; // 200 넘어가면 종료
+            }
+
+            timeId = requestAnimationFrame(sample); // 처음 실행한 이후, 실행한 것을 반복호출
+
+        }
+        //timeId = setTimeout(sample, 2000); // 1ms * 1000 즉 2초후에 샘플함수를 실행 하라는 뜻
+        //timeId = setInterval(sample,1000); //1ms * 1000 즉 1초마다 반복.
+        //console.log(timeId); // 숫자1을 리턴함(반복횟수) 이를 통해 타임아웃 취소도 가능
+        
+        sample(); // 일단 시작을 하려면 실행을 해 줘야
+        
+        btn.addEventListener('click',function(){ // 버튼누르면 타임아웃 클리어됨
+            //clearTimeout(timeId);  
+            //clearInterval(timeId);
+            cancelAnimationFrame(timeId);
+        });
+        // setInterval은 캔버스 같은 곳에서 특정 값을 계속 갱신한다던지, 
+        // 어떤 요소를 계속 갱신할 때 쓰임 
+        // 그러나 내가 아무리 빠르게 반복시키고 싶어도, 처리 능력이 안되는 경우가 있음.
+        // 이러한 단점을 개선하는 requestAnimationFrame이 있음.
+    </script>
+</body>
+</html>

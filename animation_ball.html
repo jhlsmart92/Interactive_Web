@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @keyframes ball-ani {
+            from {
+                transform: translate(0, 0);
+            }
+
+            to {
+                transform: translate(200px, 200px);
+            }
+        }
+
+        .ball {
+            /*볼을 이용한 애니메이션 이벤트*/
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 30px;
+            height: 30px;
+            margin: -15px 0 0 -15px;
+            /*마진을 음수로 해주어 센터 맞추는 것*/
+            border-radius: 50%;
+            background: red;
+            transition: 2s;
+            /*animation: ball-ani 1s 3 alternate forwards;*/
+        }
+
+        .ball.end {
+            border: 5px solid dodgerblue;
+        }
+    </style>
+
+</head>
+<div class="ball"></div>
+
+<script>
+    const ballElem = document.querySelector('.ball'); // ball 잡아옴
+
+    ballElem.addEventListener('click',function(){ // 클릭했을 때 함수 시행
+        ballElem.style.animation = 'ball-ani 1s 3 alternate forwards';
+    });
+
+    ballElem.addEventListener('animationend',function(){
+    //ballElem.addEventListener('animationstart',function(){ //시작하자마자 함수 실행
+        ballElem.classList.add('end');
+    })
+
+    ballElem.addEventListener('animationiteration',function() { //애니메니션이 반복될때마다 함수실행
+        console.log('반복!'); // 3회 실행했으므로 반복횟수는 2회
+    })
+</script>
+</body>
+
+</html>
