@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Interactive Web</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <style>
+        img {
+            max-width: 100%;
+        }
+
+        .content {
+            /* viewport height */
+            height: 1000vh;
+            padding: 20%;
+            background: yellowgreen;
+        }
+
+        .output {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            font-size: 2rem;
+            font-weight: 200;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .ilbuni {
+            width: 100px;
+            margin: 20px auto;
+            transition: 2s;
+        }
+
+        .ilbuni.zoom {
+            transform: scale(2);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="output">output</div>
+    <div class="content">
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo culpa id ratione alias illum aliquam
+            accusamus deleniti dolores dignissimos, temporibus iste perspiciatis voluptatem repudiandae debitis
+            similique fugiat dolor, doloremque quos mollitia repellendus iure exercitationem molestiae ab! Veritatis
+            harum voluptate enim ducimus amet vitae veniam dignissimos possimus facilis eaque minus similique, vel
+            commodi sed? Sequi distinctio debitis numquam, necessitatibus officiis quam, sed rerum id culpa totam
+            provident repellendus iste, laborum maiores, consequuntur fugiat voluptatibus? Ad, architecto. Ipsam minus
+            quis, ea quas, ex impedit quia distinctio commodi expedita laudantium dolores cum? Quisquam, odit,
+            laboriosam consequuntur expedita optio laudantium. Optio laboriosam, repellendus laborum.
+        </p>
+        <figure class="ilbuni">
+            <img src="images/ilbuni_0.png" alt="일분이">
+        </figure>
+    </div>
+
+    <script>
+        (function() { // 전역변수 사용을 피하기 위해 자동으로 시작되는 익명의 함수 사용
+            //윈도우 전역객체에 스크롤 이벤트 걸음
+            const outputElem = document.querySelector('.output'); // 스크롤 할 때마다 스크롤값 아웃풋에 출력위해 아웃풋 값 가져옴 
+            const ilbuniElem = document.querySelector('.ilbuni'); //ilbuni의 위치를 알아야 스크롤시 output을 변형시킬 수 있음
+            
+            function showValue() {
+                //outputElem.innerHTML = window.pageYOffset; //윈도우 전역객체의 pageYoffset. 이로써 output 부분에 스크롤 시 수치가 변하게 표시가능
+                //outputElem.innerHTML = ilbuniElem.pageoffsetTop;//offsetTop의 경우 처음위치만 가져옴(즉 일부니가 있는 위치)
+                let posY = ilbuniElem.getBoundingClientRect().top; //해당 객체의 위치(top)에 접근
+                outputElem.innerHTML = posY;
+                console.log(window.innerHeight);// window 높이 952
+
+                if(posY < window.innerHeight*0.2) { // ilbuni의 높이가 화면높이의 1/5보다 높을때
+                    ilbuniElem.classList.add('zoom'); //ilbuni에 zoom 클래스 붙임
+                } else {
+                    ilbuniElem.classList.remove('zoom'); // ilbuni가 1/5보다 밑에 있으면 다시 줄어듬
+                }
+            }
+            
+            window.addEventListener('scroll',function() { // 이벤트리스너를 만들땐 필요한 함수를 따로 빼놓고 쓰는 것이 좋음
+                showValue();
+            }); 
+            
+            showValue();
+
+        }) ();
+    </script>
+</body>
+
+</html>
