@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3D wall</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style3D.css">
+</head>
+
+<body>
+    <div class="progress-bar-con">
+        <!--뒷부분 진한 회색바-->
+        <div class="progress-bar"></div>
+        <!--진행상황표시하는 파란 바-->
+    </div>
+    <div class="select-character">
+        <button class="select-character-btn select-character-btn-ilbuni" data-char="ilbuni"></button>
+        <button class="select-character-btn select-character-btn-ragirl" data-char="ragirl"></button>
+    </div>
+
+    <div class="world">
+        <div class="stage">
+            <!--캐릭터와 집을 같이 감쌀 공간. 캐릭터는 집 앞 혹은 옆에 놓이는 개념-->
+            <div class="house">
+                <section class="wall wall-left"></section>
+                <section class="wall wall-right"></section>
+                <section class="wall wall-front wall-front-a">
+                    <div class="wall-content">
+                        <h2 class="wall-title">안녕하세요</h2>
+                    </div>
+                </section>
+                <section class="wall wall-front wall-front-b">
+                    <div class="wall-content">
+                        <h2 class="wall-title">Hello</h2>
+                    </div>
+                </section>
+                <section class="wall wall-front wall-front-c">
+                    <div class="wall-content">
+                        <h2 class="wall-title">Hola</h2>
+                    </div>
+                </section>
+                <section class="wall wall-front wall-front-d">
+                    <div class="wall-content">
+                        <h2 class="wall-title">こんにちは</h2>
+                    </div>
+                </section>
+
+            </div>
+            <!--// house -->
+
+            <!-- 캐릭터 놓이는 곳 -->
+
+        </div>
+        <!--// stage -->
+    </div>
+    <!--// world -->
+    <script src ="js/character3d.js"></script>
+    <script src="js/script3d.js"></script>
+</body>
+
+</html>
