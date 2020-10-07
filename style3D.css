@@ -43,7 +43,7 @@ body[data-char = 'ragirl']{
 하우스 안에는 벽이 있는 것이고, 캐릭터는 하우스 앞, 혹은 옆에 배치하는 개념*/
 /*html에서 캐릭터가 클릭을 하면 생김(자바스크립트)*/
 .stage { 
-    position: abosolute;
+    position: absolute;
     left: 0;
     top: 0;
     width: 100vw;
